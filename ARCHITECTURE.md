@@ -64,7 +64,7 @@ Optional Components:
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## 📁 File Descriptions
+## File Descriptions
 
 ### Core MCP Server Files
 
@@ -83,7 +83,7 @@ Optional Components:
 
 ---
 
-#### 2. `mcp_entrypoint.py` ⭐ **MAIN FILE**
+#### 2. `mcp_entrypoint.py`  **MAIN FILE**
 **Purpose**: MCP protocol server that provides tools to Claude Desktop
 
 **What it does**:
@@ -136,56 +136,6 @@ Optional Components:
 
 ---
 
-### Optional/Supporting Files
-
-#### 4. `mcp_client_streamer.py` ⚠️ **REDUNDANT - CAN BE DELETED**
-**Purpose**: ~~Optional WebSocket client that forwards GDB output to OpenAI API~~
-
-**Status**: **NOT USED** - This file is from an earlier iteration and is now **completely redundant** because:
-- Claude Desktop has its own model (Sonnet) that can explain GDB output
-- The `gdb-explain` tool already provides structured analysis
-- No other files import or depend on this script
-
-**What it did** (for reference):
-- Connected to the WebSocket server
-- Batched received lines
-- Sent batches to OpenAI API for explanation
-- Logged explanations to `gdb_explanations.log`
-
-**Recommendation**: **Safe to delete** - The core MCP server does not depend on this file.
-
----
-
-#### 5. `mock_model_server.py`
-**Purpose**: Mock HTTP server for testing (Flask-based)
-
-**What it does**:
-- Provides `/v1/explain` endpoint
-- Returns mock explanations for testing
-- Simulates API delay
-
-**When to use**: For testing without OpenAI API access
-
----
-
-#### 6. `main.py`
-**Purpose**: Simple Flask server for downloading gdb.txt
-
-**What it does**:
-- Provides `/download` endpoint
-- Serves gdb.txt file for download
-- Runs on port 6969
-
-**When to use**: If you need HTTP access to download the file
-
----
-
-#### 7. `start_streamer.sh`
-**Purpose**: Alternative/legacy wrapper script (currently commented out)
-
-**Status**: Appears to be an older version, mostly commented out
-
----
 
 ### Data Files
 
@@ -200,16 +150,10 @@ Optional Components:
 ```bash
 gdb ./program 2>&1 | tee gdb.txt
 ```
-
----
-
-#### 9. `gdb_explanations.log`
-**Purpose**: Log file for AI-generated explanations
-
-**What it contains**: Explanations from OpenAI API (if using `mcp_client_streamer.py`)
-
----
-
+or in your GDB Session
+```bash
+set logging enabled
+```
 #### 10. `.ws_port`
 **Purpose**: Temporary file storing the actual WebSocket port
 
@@ -218,21 +162,6 @@ gdb ./program 2>&1 | tee gdb.txt
 **Lifecycle**: Created by `mcp_ws_tail_server.py`, read by `mcp_entrypoint.py`, deleted on server shutdown
 
 ---
-
-### Test Files
-
-#### 11. `test_ws_client.py`
-**Purpose**: Test script for WebSocket server
-
-**What it does**: Connects to WebSocket and prints received messages
-
----
-
-#### 12. `test.py`
-**Purpose**: Unknown (appears empty or minimal)
-
----
-
 ## 🔄 Data Flow
 
 ### 1. MCP Tool Call Flow
@@ -332,7 +261,7 @@ READ_CHUNK_DELAY=0.2
 - **Output**: Structured markdown explanation
 - **Use case**: Get human-readable analysis of GDB output
 
-## 🚀 Quick Start
+##  Quick Start
 
 1. **Setup GDB output**:
    ```bash
@@ -364,7 +293,7 @@ READ_CHUNK_DELAY=0.2
 - Verify port in `.ws_port` file
 - Test with: `curl http://localhost:8765/`
 
-## 📝 Notes
+## Notes
 
 - All paths are currently hardcoded (update if moving project)
 - The MCP server runs in a subprocess spawned by Claude Desktop
