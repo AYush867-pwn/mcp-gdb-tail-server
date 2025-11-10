@@ -2,7 +2,7 @@
 
 A Model Context Protocol (MCP) server that provides tools for analyzing and streaming GDB (GNU Debugger) output to Claude Desktop.
 
-## 🎯 Purpose
+## Purpose
 
 This project enables Claude Desktop to:
 - Stream GDB output in real-time via WebSocket
@@ -17,15 +17,12 @@ AIDebugger/
 ├── start_gdb_streamer.sh      # Entry point for Claude Desktop
 ├── mcp_entrypoint.py          # Main MCP server (provides 5 tools)
 ├── mcp_ws_tail_server.py      # WebSocket server (streams gdb.txt)
-├── mcp_client_streamer.py   # ⚠️ REDUNDANT: Can be deleted (not used by core system)
-├── mock_model_server.py       # Optional: Mock API for testing
-├── main.py                    # Optional: HTTP download server
 ├── gdb.txt                    # GDB output file (monitored)
 ├── .ws_port                   # Temp file (stores WebSocket port)
 └── env/                       # Python virtual environment
 ```
 
-## 🛠️ Available Tools
+##  Available Tools
 
 1. **gdb-tail** - Get WebSocket URI for real-time streaming
 2. **gdb-read-file** - Read gdb.txt content
@@ -33,7 +30,7 @@ AIDebugger/
 4. **gdb-clear-file** - Clear gdb.txt (with confirmation)
 5. **gdb-explain** - Analyze and explain GDB output
 
-## 🚀 Setup
+##  Setup
 
 1. **Install dependencies**:
    ```bash
@@ -66,7 +63,7 @@ AIDebugger/
 
 4. **Restart Claude Desktop** and enable the "gdb-streamer" connector
 
-## 📖 Usage
+##  Usage
 
 In Claude Desktop, you can now:
 - "Use gdb-explain to analyze the GDB output"
@@ -74,7 +71,7 @@ In Claude Desktop, you can now:
 - "Read the last 50 lines of gdb.txt"
 - "Get the WebSocket URI for streaming"
 
-## 📚 Documentation
+##  Documentation
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed documentation on:
 - System architecture
@@ -83,7 +80,7 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed documentation on:
 - Configuration options
 - Troubleshooting
 
-## 🔧 Configuration
+## Configuration
 
 Create a `.env` file (optional):
 ```bash
@@ -94,7 +91,7 @@ SEND_INTERVAL=0.0
 READ_CHUNK_DELAY=0.2
 ```
 
-## 📝 License
+##  License
 
 MIT
 
